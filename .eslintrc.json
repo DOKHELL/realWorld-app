@@ -1,0 +1,49 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    }
+  },
+  "extends" : [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb-base"
+  ],
+  "rules" : {
+    "no-underscore-dangle": "off",
+    "linebreak-style": "off",
+    "object-curly-newline": "off",
+    "object-curly-spacing": [2, "never"],
+    "comma-dangle": "off",
+    "arrow-body-style" : "warn",
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
+    "global-require": "off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "no-undef": "off",
+    "react/display-name": "off",
+    "default-case": "off",
+    "class-methods-use-this": "off",
+    "lines-between-class-members": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-deprecated": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/no-dynamic-require": "off",
+    "no-restricted-globals": "off",
+    "no-case-declarations": "off",
+    "no-shadow": "off",
+    "indent": ["error", 2, {"SwitchCase": 1}],
+    "max-len": [
+      "error",
+      {
+        "code": 180
+      }
+    ]
+  }
+}
