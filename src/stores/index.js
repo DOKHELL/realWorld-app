@@ -1,5 +1,7 @@
 import {configure} from 'mobx';
-import testStore from './testStore';
+import authStore from './authStore';
+import commonStore from './commonStore';
+import articleStore from './articleStore';
 
 
 configure({
@@ -7,5 +9,7 @@ configure({
 });
 
 export default {
-  testStore,
+  authStore,
+  commonStore,
+  articleStore
 };

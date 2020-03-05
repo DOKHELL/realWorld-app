@@ -10,16 +10,16 @@ const Header = () => {
           <li className="nav-item">
             <Link className="nav-link active" to="/">Home</Link>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-compose"/>&nbsp;New Post
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-gear-a"/>&nbsp;Settings
-            </a>
-          </li>
+          {/*<li className="nav-item">*/}
+          {/*  <a className="nav-link" href="">*/}
+          {/*    <i className="ion-compose"/>&nbsp;New Post*/}
+          {/*  </a>*/}
+          {/*</li>*/}
+          {/*<li className="nav-item">*/}
+          {/*  <a className="nav-link" href="">*/}
+          {/*    <i className="ion-gear-a"/>&nbsp;Settings*/}
+          {/*  </a>*/}
+          {/*</li>*/}
           <li className="nav-item">
             <Link className="nav-link" to="/login">Sign in</Link>
           </li>

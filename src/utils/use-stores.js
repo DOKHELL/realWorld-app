@@ -8,7 +8,3 @@ const StoresContext = React.createContext({
 export const useStores = () => (
   React.useContext(StoresContext)
 );
-
-export const StoreProvider = ({children}) => {
-  return <StoresContext.Provider value={{...stores}}>{children}</StoresContext.Provider>
-};
