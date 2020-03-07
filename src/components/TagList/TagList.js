@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import cn from 'classnames';
 
 const TagList = ({tags, className}) => {
@@ -9,9 +10,16 @@ const TagList = ({tags, className}) => {
   return (
     <ul className="tag-list">
       {tags.map((tag, i) => (
-        <li className={tagClasses} key={i}>
+        <Link
+          to={{
+            pathname: '/',
+            search: `?tab=tag&tag=${tag}`,
+          }}
+          className={tagClasses}
+          key={i}
+        >
           {tag}
-        </li>
+        </Link>
       ))}
     </ul>
   );
