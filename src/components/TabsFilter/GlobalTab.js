@@ -1,13 +1,19 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import {useStores} from '../../utils/use-stores';
 
 const GlobalTab = () => {
+  const {articleStore} = useStores();
+
   return (
     <li className="nav-item">
-      <Link className="nav-link active" to={{
-        pathname: '/',
-        search: '?tab=all'
-      }}>Global Feed</Link>
+      <NavLink
+        className="nav-link"
+        isActive={() => (!articleStore.params.tag && true)}
+        to={{
+          pathname: '/',
+          search: '?tab=all'
+        }}>Global Feed</NavLink>
     </li>
   );
 };

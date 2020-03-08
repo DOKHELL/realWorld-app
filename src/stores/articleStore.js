@@ -24,7 +24,7 @@ class ArticleStore {
   };
 
   @action createUrl = () => {
-    let url = `${API}/articles`;
+    let url = `${API}/articles?limit=2`;
     if (this.params.tag) {
       url = `${API}/articles/?tag=${this.params.tag}`;
     }
