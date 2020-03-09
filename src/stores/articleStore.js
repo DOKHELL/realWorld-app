@@ -3,9 +3,14 @@ import axios from 'axios';
 import {parse} from 'querystring';
 import {API} from '../utils/env';
 
+const LIMIT = 10;
+
 class ArticleStore {
   @observable articles = null;
   @observable loading = false;
+  @observable totalPageCount = 0;
+  @observable totalCount = 0;
+  @observable page = 0;
   @observable params = {
     tab: 'all',
     tag: ''
@@ -13,6 +18,12 @@ class ArticleStore {
 
   @action setParams = (search) => {
     this.params = parse(search);
+    this.page = 0;
+  };
+
+  @action setActivePage = (page) => {
+    this.page = page - 1;
+    this.loadArticles();
   };
 
   @action setArticles = (articles) => {
@@ -24,9 +35,9 @@ class ArticleStore {
   };
 
   @action createUrl = () => {
-    let url = `${API}/articles?limit=2`;
+    let url = `${API}/articles?limit=${LIMIT}&&offset=${this.page * LIMIT}`;
     if (this.params.tag) {
-      url = `${API}/articles/?tag=${this.params.tag}`;
+      url = `${API}/articles/?limit=${LIMIT}&&offset=${this.page * LIMIT}&&tag=${this.params.tag}`;
     }
     return url;
   };
@@ -35,7 +46,10 @@ class ArticleStore {
     try {
       this.setLoading(true);
       const response = await axios.get(this.createUrl());
-      this.setArticles(response.data.articles);
+      const {articles, articlesCount} = response.data;
+      this.setArticles(articles);
+      this.totalCount = articlesCount;
+      this.totalPageCount = Math.ceil(articlesCount / LIMIT);
       this.setLoading(false);
     } catch (e) {
       console.log(e.response);

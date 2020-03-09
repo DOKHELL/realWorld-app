@@ -2,6 +2,7 @@ import {configure} from 'mobx';
 import authStore from './authStore';
 import commonStore from './commonStore';
 import articleStore from './articleStore';
+import userStore from './userStore';
 
 
 configure({
@@ -11,5 +12,6 @@ configure({
 export default {
   authStore,
   commonStore,
-  articleStore
+  articleStore,
+  userStore
 };

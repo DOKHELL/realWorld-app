@@ -12,8 +12,7 @@ const Login = () => {
   const {authStore} = useStores();
   const history = useHistory();
   const onSubmit = (data) => {
-    authStore.fetchLogin(data)
-      .then((bool) => bool && history.push('/'));
+    authStore.fetchLogin(data).then(() => history.push('/'));
   };
   return (
     <div className="auth-page">
