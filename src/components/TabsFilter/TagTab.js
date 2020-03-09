@@ -11,7 +11,7 @@ const TagTab = ({tag}) => {
       <li className="nav-item">
         <NavLink
           className="nav-link"
-          isActive={() => (articleStore.params.tag && true)}
+          isActive={() => (articleStore.params.tag)}
           to={{
             pathname: '/',
             search: `?tab=tag&tag=${tag}`

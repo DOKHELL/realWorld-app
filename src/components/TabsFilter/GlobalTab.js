@@ -9,7 +9,7 @@ const GlobalTab = () => {
     <li className="nav-item">
       <NavLink
         className="nav-link"
-        isActive={() => (!articleStore.params.tag && true)}
+        isActive={() => (articleStore.params.tab === 'all')}
         to={{
           pathname: '/',
           search: '?tab=all'

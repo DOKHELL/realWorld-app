@@ -1,6 +1,6 @@
 import {action, observable} from 'mobx';
+import {parse} from 'query-string';
 import axios from 'axios';
-import {parse} from 'querystring';
 import {API} from '../utils/env';
 
 const LIMIT = 10;
@@ -39,13 +39,18 @@ class ArticleStore {
     if (this.params.tag) {
       url = `${API}/articles/?limit=${LIMIT}&&offset=${this.page * LIMIT}&&tag=${this.params.tag}`;
     }
+    if (this.params.tab === 'feed') {
+      url = `${API}/articles/feed?limit=${LIMIT}&&offset=${this.page * LIMIT}`;
+    }
     return url;
   };
 
   @action loadArticles = async () => {
     try {
       this.setLoading(true);
-      const response = await axios.get(this.createUrl());
+      const response = await axios.get(this.createUrl(), {
+        headers: {authorization: `Token ${localStorage.getItem('token')}`}
+      });
       const {articles, articlesCount} = response.data;
       this.setArticles(articles);
       this.totalCount = articlesCount;

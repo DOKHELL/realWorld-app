@@ -15,24 +15,7 @@ class AuthStore {
   @action setErrors = (errors) => {
     this.errors = errors;
   };
-  // fetchAuth = async (data) => {
-  //   const Data = {
-  //     user: {
-  //       ...data
-  //     }
-  //   };
-  //   try {
-  //     this.setLoading(true);
-  //     const response = await axios.post(`${API}/users/login`, Data);
-  //     commonStore.setToken(response.data.user.token);
-  //     this.setLoading(false);
-  //     return true;
-  //   } catch (e) {
-  //     this.setLoading(false);
-  //     this.setErrors(e.response.data.errors);
-  //     return false;
-  //   }
-  // };
+
   fetchLogin(data) {
     const loginData = {
       user: {
