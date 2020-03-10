@@ -5,8 +5,10 @@ import {API} from '../utils/env';
 import commonStore from './commonStore';
 
 const LIMIT = 10;
-axios.defaults.headers.post['authorization'] = `Token ${commonStore.token}`;
-axios.defaults.headers.get['authorization'] = `Token ${commonStore.token}`;
+if (commonStore.token) {
+  axios.defaults.headers.post['authorization'] = `Token ${commonStore.token}`;
+  axios.defaults.headers.get['authorization'] = `Token ${commonStore.token}`;
+}
 
 class ArticleStore {
   @observable articles = null;
@@ -59,15 +61,16 @@ class ArticleStore {
     } catch (e) {
       console.log(e.response);
     }
-  }
+  };
+
   @action makeFavorite = (article) => {
     article.favorited = true;
-    article.favoritesCount++;
+    article.favoritesCount += 1;
     try {
-      axios.post(`${API}/${article.slug}/favorite`);
+      axios.post(`${API}/articles/${article.slug}/favorite`);
     } catch (e) {
       article.favorited = false;
-      article.favoritesCount--;
+      article.favoritesCount -= 1;
     }
   }
 }
