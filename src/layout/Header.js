@@ -29,7 +29,7 @@ const Header = () => {
 
               <li className="nav-item">
                 <Link
-                  to={`/@${currentUser}`}
+                  to={`/@${currentUser.username}`}
                   className="nav-link"
                 >
                   <img src={currentUser.image} className="user-pic" alt="" />

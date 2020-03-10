@@ -16,6 +16,13 @@ class AuthStore {
     this.errors = errors;
   };
 
+  @action logout = () => {
+    commonStore.token = undefined;
+    localStorage.removeItem('token');
+    userStore.forgetUser();
+    return Promise.resolve();
+  };
+
   fetchLogin(data) {
     const loginData = {
       user: {
@@ -44,11 +51,9 @@ class AuthStore {
       commonStore.setToken(response.data.user.token);
       userStore.pullUser();
       this.setLoading(false);
-      return true;
     } catch (e) {
       this.setLoading(false);
       this.setErrors(e.response.data.errors);
-      return false;
     }
   };
 }

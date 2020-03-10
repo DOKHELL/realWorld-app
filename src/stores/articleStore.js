@@ -2,8 +2,11 @@ import {action, observable} from 'mobx';
 import {parse} from 'query-string';
 import axios from 'axios';
 import {API} from '../utils/env';
+import commonStore from './commonStore';
 
 const LIMIT = 10;
+axios.defaults.headers.post['authorization'] = `Token ${commonStore.token}`;
+axios.defaults.headers.get['authorization'] = `Token ${commonStore.token}`;
 
 class ArticleStore {
   @observable articles = null;
@@ -15,6 +18,7 @@ class ArticleStore {
     tab: 'all',
     tag: ''
   };
+
 
   @action setParams = (search) => {
     this.params = parse(search);
@@ -36,21 +40,17 @@ class ArticleStore {
 
   @action createUrl = () => {
     let url = `${API}/articles?limit=${LIMIT}&&offset=${this.page * LIMIT}`;
-    if (this.params.tag) {
-      url = `${API}/articles/?limit=${LIMIT}&&offset=${this.page * LIMIT}&&tag=${this.params.tag}`;
-    }
-    if (this.params.tab === 'feed') {
-      url = `${API}/articles/feed?limit=${LIMIT}&&offset=${this.page * LIMIT}`;
-    }
+
+    if (this.params.tag) url = `${API}/articles/?limit=${LIMIT}&&offset=${this.page * LIMIT}&&tag=${this.params.tag}`;
+    if (this.params.tab === 'feed') url = `${API}/articles/feed?limit=${LIMIT}&&offset=${this.page * LIMIT}`;
+
     return url;
   };
 
   @action loadArticles = async () => {
     try {
       this.setLoading(true);
-      const response = await axios.get(this.createUrl(), {
-        headers: {authorization: `Token ${localStorage.getItem('token')}`}
-      });
+      const response = await axios.get(this.createUrl());
       const {articles, articlesCount} = response.data;
       this.setArticles(articles);
       this.totalCount = articlesCount;
@@ -58,6 +58,16 @@ class ArticleStore {
       this.setLoading(false);
     } catch (e) {
       console.log(e.response);
+    }
+  }
+  @action makeFavorite = (article) => {
+    article.favorited = true;
+    article.favoritesCount++;
+    try {
+      axios.post(`${API}/${article.slug}/favorite`);
+    } catch (e) {
+      article.favorited = false;
+      article.favoritesCount--;
     }
   }
 }
