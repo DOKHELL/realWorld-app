@@ -16,6 +16,8 @@ class UserStore {
       .finally(() => this.userLoading = false);
   }
 
+  //runInAction
+
   @action updatingUser(newUser) {
     return axios.put(`${API}/user`, newUser, {headers: {authorization: `Token ${localStorage.getItem('token')}`}})
       .then((user) => console.log(user));
