@@ -20,13 +20,14 @@ class ArticleStore {
   @observable page = 0;
   @observable params = {
     tab: 'all',
-    tag: ''
+    tag: '',
+    author: ''
   };
 
 
   @action setParams = (search) => {
     // this.params = parse(search);
-    let params = {};
+    const params = {};
     search.forEach((value, key) => {
       params[key] = value;
     });

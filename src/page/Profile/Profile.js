@@ -8,8 +8,11 @@ const Profile = () => {
   const {articleStore, userStore: {currentUser}} = useStores();
   const location = useLocation();
   useEffect(() => {
-    articleStore.setParams(location.pathname);
-  }, [location.pathname]);
+    const params = new URLSearchParams(location.pathname);
+    if (location.pathname) {
+      articleStore.setParams(params);
+    }
+  }, []);
 
   return (
     <div className="profile-page">
