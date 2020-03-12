@@ -4,7 +4,7 @@ import {API} from '../utils/env';
 
 class CommonStore {
   @observable token = window.localStorage.getItem('token');
-
+  @observable appLoaded = false;
   @observable tags = [];
   @observable isLoadingTags = true;
 
@@ -41,6 +41,9 @@ class CommonStore {
     } catch (e) {
       console.log(e);
     }
+  };
+  @action setAppLoaded = () => {
+    this.appLoaded = true;
   }
 }
 

@@ -9,25 +9,33 @@ import Register from './page/Register/Register';
 import {useStores} from './utils/use-stores';
 import Settings from './page/Settings/Settings';
 import Profile from './page/Profile/Profile';
+import PrivatRoute from './utils/privatRoute';
+import Loader from './components/Loader/Loader';
 
 
 const App = () => {
   const {userStore, commonStore} = useStores();
   useEffect(() => {
     if (commonStore.token) {
-      userStore.pullUser();
+      userStore.pullUser()
+        .then(() => commonStore.setAppLoaded());
+    } else {
+      commonStore.setAppLoaded();
     }
   }, []);
   return (
     <div className="App">
       <Header/>
-      <Switch>
-        <Route path='/login' component={Login}/>
-        <Route path='/register' component={Register}/>
-        <Route path='/settings' component={Settings}/>
-        <Route path='/@:username' component={Profile}/>
-        <Route path='/' component={Home}/>
-      </Switch>
+      {commonStore.appLoaded
+        ? <Switch>
+          <Route path='/login' component={Login}/>
+          <Route path='/register' component={Register}/>
+          <PrivatRoute exact path='/settings' component={Settings}/>
+          <Route path='/@:username' component={Profile}/>
+          <Route path='/' component={Home}/>
+        </Switch>
+        : <Loader className="medium"/>
+      }
       <Footer/>
     </div>
   );

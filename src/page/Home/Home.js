@@ -6,13 +6,13 @@ import MainContainer from './MainContainer/MainContainer';
 import SideBar from './SideBar/SideBar';
 
 const Home = () => {
-  const {commonStore, userStore: {currentUser}} = useStores();
+  const {commonStore} = useStores();
   useEffect(() => {
     commonStore.loadTags();
   }, []);
   return (
     <div className="home-page">
-      {!currentUser && <HomeBanner/>}
+      {!commonStore.token && <HomeBanner/>}
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
