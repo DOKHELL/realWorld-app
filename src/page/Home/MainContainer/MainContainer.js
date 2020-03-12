@@ -13,8 +13,9 @@ const MainContainer = () => {
   const location = useLocation();
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
     if (location.search) {
-      articleStore.setParams(location.search);
+      articleStore.setParams(params);
     }
     articleStore.loadArticles();
   }, [location.search]);

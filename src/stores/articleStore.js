@@ -10,6 +10,8 @@ if (commonStore.token) {
   axios.defaults.headers.get['authorization'] = `Token ${commonStore.token}`;
 }
 
+//интерсептер
+
 class ArticleStore {
   @observable articles = null;
   @observable loading = false;
@@ -23,7 +25,12 @@ class ArticleStore {
 
 
   @action setParams = (search) => {
-    this.params = parse(search);
+    // this.params = parse(search);
+    let params = {};
+    search.forEach((value, key) => {
+      params[key] = value;
+    });
+    this.params = params;
     this.page = 0;
   };
 
@@ -45,6 +52,11 @@ class ArticleStore {
 
     if (this.params.tag) url = `${API}/articles/?limit=${LIMIT}&&offset=${this.page * LIMIT}&&tag=${this.params.tag}`;
     if (this.params.tab === 'feed') url = `${API}/articles/feed?limit=${LIMIT}&&offset=${this.page * LIMIT}`;
+
+    const testUrl = new URL('/articles', API);
+    testUrl.searchParams.set('limit', LIMIT);
+    if (this.params.tag) testUrl.searchParams.set('tag', this.params.tag);
+    console.log(testUrl.href);
 
     return url;
   };
