@@ -32,7 +32,7 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.20.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "scripts": {
